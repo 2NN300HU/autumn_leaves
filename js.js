@@ -32,6 +32,7 @@ class leaf{
         this.vx = 0;
         this.color = "green";
         this.size = 0.9+Math.random()*0.2;
+        this.rad =-15+30*Math.random()
         // this.size = 0.9;
         this.stage = 0;
         this.cur = 0;
@@ -43,7 +44,7 @@ class leaf{
             this.cur = 0
             this.stage++;
         }else{
-            this.cur+=0.005;
+            this.cur+=0.0005;
         }
         switch (this.stage){
             case 0: // green
@@ -57,7 +58,7 @@ class leaf{
             case 4: // fall
                 this.count+=1;
                 this.x +=this.vx+wind;
-                this.y += Math.min(this.count*this.count , y/7)
+                this.y += Math.min(this.count*this.count/3 , y/7)
                 // console.log(this.y);
                 
                 if(this.tr.f+this.y > y+y/20){
@@ -68,7 +69,7 @@ class leaf{
                 break;
 
             case 5: //fallen
-                this.color = "brown";
+                this.color = "goldenrod";
                 break;
         }
         this.draw();
@@ -112,7 +113,7 @@ class leaf{
 
 
         ctx2.scale(this.size, this.size);
-        ctx2.rotate(((-15+30*Math.random())*Math.PI)/180);
+        ctx2.rotate((this.rad*Math.PI)/180);
         this.make();
         ctx2.fill();
 
@@ -206,16 +207,16 @@ body(y/15,y/3.5,0,0);
 
 
 ctx2.resetTransform();
-wind+=Math.random()*10-5;
+wind+=Math.random()*5-2.5;
 ctx2.clearRect(0, 0, x*2,y);
 leafs.forEach((element)=>(element.step()));
 
 setInterval(() => {
     ctx2.resetTransform();
 
-    wind+=Math.random()*10-5;
+    wind+=Math.random()*5-2.5;
     ctx2.clearRect(0, 0, x*2,y);
     leafs.forEach((element)=>(element.step()));
-}, 500);
+}, 100);
 
 
